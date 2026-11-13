@@ -4,6 +4,23 @@ All notable changes to DataCurrent are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] — 2026-11-13
+
+Automation and packaging release. The public API is unchanged.
+
+### Added
+
+- GitHub Actions CI (`.github/workflows/ci.yml`) running `ruff`, `mypy` and the
+  coverage-enforcing test suite on Python 3.11 through 3.14 for every push and
+  pull request.
+
+### Fixed
+
+- The source distribution ships `CONTRIBUTING.md`; the manifest entry was added
+  after the 1.0.1 build.
+- The release workflow now skips the PyPI upload when the version is already
+  published, instead of failing on a duplicate file.
+
 ## [1.0.1] — 2026-11-13
 
 Documentation, metadata and packaging release. The public API is unchanged.

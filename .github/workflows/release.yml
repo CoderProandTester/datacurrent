@@ -40,4 +40,26 @@ jobs:
         with:
           name: dist
           path: dist/
-      - uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Check whether this version is already on PyPI
+        id: check
+        run: |
+          python3 - <<'PY'
+          import glob, os, urllib.error, urllib.request
+
+          wheel = os.path.basename(sorted(glob.glob("dist/*.whl"))[0])
+          version = wheel.split("-")[1]
+          url = f"https://pypi.org/pypi/datacurrent/{version}/json"
+          try:
+              urllib.request.urlopen(url, timeout=15)
+          except urllib.error.HTTPError as error:
+              print(f"datacurrent {version} is not on PyPI ({error.code}); publishing.")
+              publish = "true"
+          else:
+              print(f"datacurrent {version} is already on PyPI; skipping the upload.")
+              publish = "false"
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as handle:
+              handle.write(f"publish={publish}\n")
+          PY
+      - name: Upload to PyPI
+        if: steps.check.outputs.publish == 'true'
+        uses: pypa/gh-action-pypi-publish@release/v1

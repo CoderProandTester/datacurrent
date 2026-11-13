@@ -1,6 +1,6 @@
 # API reference
 
-Public API of DataCurrent 1.0.2. Everything listed here is implemented and tested.
+Public API of DataCurrent 1.1.2. Everything listed here is implemented and tested.
 
 ## Architecture at a glance
 
@@ -226,4 +226,4 @@ DataCurrentError
 
 ## Version
 
-`datacurrent.__version__ == "1.0.2"`; `datacurrent.VERSION == (1, 0, 2)`.
+`datacurrent.__version__ == "1.1.2"`; `datacurrent.VERSION == (1, 1, 2)`.

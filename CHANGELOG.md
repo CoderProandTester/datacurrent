@@ -4,6 +4,26 @@ All notable changes to DataCurrent are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.2] — 2026-11-13
+
+Coverage and packaging release. The public API is unchanged.
+
+### Added
+
+- CI status badge in the README, alongside the PyPI and GitHub badges.
+
+### Fixed
+
+- `take(n)` no longer trips a false partial-branch report under coverage on
+  Python 3.11-3.13. It now uses the explicit `__anext__` loop that `timeout()`
+  already used, which removed the last blocker for the 100% coverage gate.
+
+### Tests
+
+- An exhausted `take()` (source shorter than the limit, including an empty
+  source), a `recover()` that never sees an error, and an event-bus worker that
+  exits when its queue closes.
+
 ## [1.0.2] — 2026-11-13
 
 Automation and packaging release. The public API is unchanged.

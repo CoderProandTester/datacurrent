@@ -2,5 +2,5 @@
 
 from __future__ import annotations
 
-__version__ = "1.0.2"
+__version__ = "1.1.2"
 VERSION = tuple(int(part) for part in __version__.split("."))

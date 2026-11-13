@@ -6,10 +6,11 @@ DataCurrent is a production-ready asynchronous streaming library. It gives you
 one consistent API for lists, async generators, queues, WebSockets, Server-Sent
 Events and streaming HTTP responses.
 
-**Version 1.0.2 · Stable / Production**
+**Version 1.1.2 · Stable / Production**
 
 [![PyPI version](https://img.shields.io/pypi/v/datacurrent.svg)](https://pypi.org/project/datacurrent/)
 [![Python versions](https://img.shields.io/pypi/pyversions/datacurrent.svg)](https://pypi.org/project/datacurrent/)
+[![CI](https://github.com/CoderProandTester/datacurrent/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/CoderProandTester/datacurrent/actions/workflows/ci.yml)
 [![GitHub](https://img.shields.io/badge/GitHub-CoderProandTester%2Fdatacurrent-181717)](https://github.com/CoderProandTester/datacurrent)
 
 - **GitHub repository:** <https://github.com/CoderProandTester/datacurrent>

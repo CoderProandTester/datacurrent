@@ -8,8 +8,13 @@ Events and streaming HTTP responses.
 
 **Version 1.0.0 · Stable / Production**
 
-[GitHub repository](https://github.com/CoderProandTester/datacurrent) ·
-[PyPI page](https://pypi.org/project/datacurrent/)
+[![PyPI version](https://img.shields.io/pypi/v/datacurrent.svg)](https://pypi.org/project/datacurrent/)
+[![Python versions](https://img.shields.io/pypi/pyversions/datacurrent.svg)](https://pypi.org/project/datacurrent/)
+[![GitHub](https://img.shields.io/badge/GitHub-CoderProandTester%2Fdatacurrent-181717)](https://github.com/CoderProandTester/datacurrent)
+
+- **GitHub repository:** <https://github.com/CoderProandTester/datacurrent>
+- **PyPI homepage:** <https://pypi.org/project/datacurrent/>
+- **Examples:** <https://github.com/CoderProandTester/datacurrent/tree/main/examples>
 
 - 279 tests passing, with 100% line and branch coverage.
 - Required networking dependencies install automatically.
@@ -22,7 +27,10 @@ pip install datacurrent
 ```
 
 Python 3.11 or newer is required. `httpx` and `websockets` are installed with the
-package, so HTTP streaming, SSE and WebSocket clients work immediately.
+package, so HTTP streaming, SSE and WebSocket clients work immediately. The
+[`examples/`](https://github.com/CoderProandTester/datacurrent/tree/main/examples)
+directory contains 16 runnable scripts, from a hello-world stream to a WebSocket
+server.
 
 Framework helpers are optional:
 

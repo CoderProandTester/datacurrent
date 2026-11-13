@@ -137,6 +137,23 @@ async def test_take_closes_upstream_after_limit() -> None:
     assert closed is True
 
 
+async def test_take_more_than_available_ends_normally() -> None:
+    """The limit is never reached, so the loop finishes by upstream exhaustion."""
+    closed = False
+
+    async def source():
+        nonlocal closed
+        try:
+            yield 1
+            yield 2
+        finally:
+            closed = True
+
+    assert await Stream.from_async_iterable(source()).take(5).collect() == [1, 2]
+    assert closed is True
+    assert await Stream.empty().take(3).collect() == []
+
+
 async def test_skip_and_take_combination() -> None:
     result = await Stream.from_iterable(range(10)).skip(3).take(4).collect()
     assert result == [3, 4, 5, 6]

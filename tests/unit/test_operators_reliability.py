@@ -124,6 +124,18 @@ async def test_recover_with_items() -> None:
     assert await Stream.from_async_iterable(broken()).recover(handler).collect() == [1, 2, 3]
 
 
+async def test_recover_passes_through_when_source_succeeds() -> None:
+    """No error means the handler is never called and every item passes through."""
+    calls: list[Exception] = []
+
+    def handler(error: Exception):
+        calls.append(error)
+        return []
+
+    assert await Stream.from_iterable([1, 2, 3]).recover(handler).collect() == [1, 2, 3]
+    assert calls == []
+
+
 async def test_recover_with_async_generator_and_none() -> None:
     async def broken():
         raise ValueError("nope")

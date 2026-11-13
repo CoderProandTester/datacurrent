@@ -283,7 +283,11 @@ async def _take_gen(upstream: Stream[T], limit: int) -> AsyncIterator[T]:
     source = upstream._open_raw()
     try:
         seen = 0
-        async for item in source:
+        while True:
+            try:
+                item = await source.__anext__()
+            except StopAsyncIteration:
+                return
             yield item
             seen += 1
             if seen >= limit:

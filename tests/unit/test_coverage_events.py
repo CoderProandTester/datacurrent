@@ -96,6 +96,27 @@ async def test_event_bus_handler_error_reporting_paths() -> None:
     await bus.aclose()
 
 
+async def test_event_bus_worker_exits_when_queue_closes() -> None:
+    """Closing the subscription queue ends the worker loop normally."""
+    bus = EventBus()
+    handled = asyncio.Event()
+
+    async def handler(event: Event[Any]) -> None:
+        handled.set()
+
+    subscription = bus.subscribe("worker", handler)
+    await bus.publish("worker", 1)
+    await asyncio.wait_for(handled.wait(), timeout=2)
+
+    task = subscription.task
+    assert task is not None
+    await subscription.queue.aclose()
+    await asyncio.wait_for(task, timeout=2)
+    assert task.cancelled() is False
+    assert task.exception() is None
+    await bus.aclose()
+
+
 async def test_event_bus_stream_closed_without_events() -> None:
     bus = EventBus()
     stream = bus.stream("empty")

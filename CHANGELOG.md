@@ -4,6 +4,17 @@ All notable changes to DataCurrent are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.3] — 2026-11-13
+
+Documentation and badge fix. The public API is unchanged.
+
+### Fixed
+
+- The README, and therefore the PyPI description, claimed 279 passing tests.
+  The suite has 282 after the coverage tests added in 1.1.2.
+- Refreshed the PyPI version, Python versions and CI badge URLs so GitHub and
+  PyPI render current images instead of a stale cached copy.
+
 ## [1.1.2] — 2026-11-13
 
 Coverage and packaging release. The public API is unchanged.

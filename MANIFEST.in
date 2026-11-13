@@ -1,0 +1,15 @@
+include README.md
+include LICENSE
+include CHANGELOG.md
+include MANIFEST.in
+recursive-include datacurrent *.py py.typed
+prune tests
+prune examples
+prune benchmarks
+prune docs
+prune scripts
+prune .venv
+prune dist
+prune build
+global-exclude *.py[cod]
+global-exclude __pycache__

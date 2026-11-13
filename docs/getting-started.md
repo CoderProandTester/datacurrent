@@ -23,7 +23,7 @@ import asyncio
 import datacurrent
 from datacurrent import Stream
 
-print(datacurrent.__version__)  # 1.0.0
+print(datacurrent.__version__)  # 1.0.1
 print(asyncio.run(Stream.from_iterable([1, 2]).collect()))  # [1, 2]
 ```
 

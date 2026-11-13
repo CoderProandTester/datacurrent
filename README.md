@@ -6,7 +6,7 @@ DataCurrent is a production-ready asynchronous streaming library. It gives you
 one consistent API for lists, async generators, queues, WebSockets, Server-Sent
 Events and streaming HTTP responses.
 
-**Version 1.0.0 · Stable / Production**
+**Version 1.0.1 · Stable / Production**
 
 [![PyPI version](https://img.shields.io/pypi/v/datacurrent.svg)](https://pypi.org/project/datacurrent/)
 [![Python versions](https://img.shields.io/pypi/pyversions/datacurrent.svg)](https://pypi.org/project/datacurrent/)
@@ -189,6 +189,39 @@ stream = Stream.from_factory(connect_and_read).retry(
 Retries require a replayable source, such as a factory or a list. A consumed
 generator raises `NonReplayableStreamError` instead of silently restarting.
 
+## Examples
+
+Sixteen runnable scripts live in [`examples/`](https://github.com/CoderProandTester/datacurrent/tree/main/examples).
+Each one is self-contained and is executed by the test suite, so the output you
+see is the output the project verifies.
+
+```bash
+python examples/01_hello_stream.py
+python -m pytest tests/unit/test_examples.py -q  # run them all
+```
+
+| Script | What it demonstrates |
+|---|---|
+| `01_hello_stream.py` | Creating a stream, iterating it, `tap` and terminal operations |
+| `02_transformations.py` | `filter`, `map`, `distinct`, `batch`, `window`, `reduce`, `enumerate` |
+| `03_large_dataset.py` | 100,000 records streamed in batches with bounded memory |
+| `04_filter_events.py` | `EventBus` wildcard topics and multiple handlers |
+| `05_multi_subscriber.py` | `Channel` fan-out to three independent consumers |
+| `06_websocket_client.py` | `WebSocketStream` JSON send/receive against a local echo server |
+| `07_websocket_server.py` | Broadcasting a `Channel` to connected WebSocket clients |
+| `08_sse_client.py` | `SSEStream` event ids, event types and JSON payloads |
+| `09_http_streaming.py` | `HTTPStream` line iteration and raw body streaming |
+| `10_fastapi_integration.py` | Serving a DataCurrent stream as a FastAPI SSE endpoint |
+| `11_backpressure.py` | Bounded queues, producer suspension and counted drops |
+| `12_concurrent_processing.py` | Bounded concurrency with order preserved |
+| `13_retry_recovery.py` | `RetryPolicy`, `recover` and replayable sources |
+| `14_custom_transport.py` | Implementing `StreamTransport` for a custom protocol |
+| `15_realtime_notifications.py` | Routing one event to WebSocket and email consumers |
+| `16_event_pipeline.py` | End-to-end event filtering, mapping and batching |
+
+`examples/_servers.py` holds the local HTTP/SSE test servers the networking
+examples use; it is not an example itself.
+
 ## Why DataCurrent
 
 - One model for iterables, queues, HTTP, SSE and WebSockets.
@@ -207,7 +240,7 @@ in-process streaming layer that works without any of them.
 
 - Python 3.11+ on asyncio; no Trio or AnyIO backend.
 - In-memory `Channel` and `EventBus` delivery is at most once.
-- No durable broker adapters or OpenTelemetry exporter in 1.0.0.
+- No durable broker adapters or OpenTelemetry exporter in this release.
 - The project name is provisional pending trademark clearance.
 
 ## License

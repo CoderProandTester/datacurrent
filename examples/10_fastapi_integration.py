@@ -1,11 +1,14 @@
 """FastAPI integration: serve DataCurrent events as an SSE endpoint.
 
-Run with::
+Run the demo directly::
 
-    uvicorn examples.10_fastapi_integration:app --port 8000
+    python examples/10_fastapi_integration.py
 
-This example builds the app and verifies it with an in-process ASGI request, so
-it runs without opening a port.
+It builds the app and verifies it with an in-process ASGI request, so it runs
+without opening a port. To serve it for real, start uvicorn from the examples
+directory::
+
+    cd examples && uvicorn 10_fastapi_integration:app --port 8000
 """
 
 from __future__ import annotations

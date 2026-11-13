@@ -4,6 +4,33 @@ All notable changes to DataCurrent are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] — 2026-11-13
+
+Documentation, metadata and packaging release. The public API is unchanged.
+
+### Added
+
+- `CONTRIBUTING.md`: development setup, the check suite, and the release
+  process, including PyPI trusted publishing.
+- A "Documented examples" section in the README that maps each of the sixteen
+  runnable scripts to the feature it demonstrates.
+- `[project.urls]` in `pyproject.toml`: homepage and repository (GitHub), issues,
+  changelog and PyPI.
+- A GitHub Actions release workflow that publishes to PyPI over OIDC, so
+  uploads carry a signed provenance attestation.
+
+### Fixed
+
+- The FastAPI example documented `uvicorn examples.10_fastapi_integration:app`,
+  which is not a runnable module path. It now shows the verified commands.
+
+### Changed
+
+- README links to the GitHub repository, the PyPI homepage and the examples
+  directory.
+- The "not published to PyPI" note was removed; the package is on PyPI and this
+  is the current release.
+
 ## [1.0.0] — 2026-11-08
 
 First stable release. Built and verified locally; not published to PyPI.

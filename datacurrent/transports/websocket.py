@@ -219,7 +219,11 @@ class WebSocketStream:
         return message
 
     async def recv(self) -> Any:
-        """Receive one message, reconnecting when configured."""
+        """Receive one message from the open connection.
+
+        Reconnection applies to ``async for``; ``recv()`` raises
+        :class:`WebSocketClosedError` when the connection ends.
+        """
         websockets = require_module("websockets", purpose="WebSocketStream")
         if self._ws is None:
             await self._connect()

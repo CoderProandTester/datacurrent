@@ -93,6 +93,11 @@ class HTTPStream:
 
     async def __aenter__(self) -> HTTPStream:
         httpx = require_module("httpx", purpose="HTTPStream")
+        # Re-entering a closed stream (as_stream() or a second ``async with``)
+        # must open a fresh response; a previous one is released first so it
+        # cannot leak.
+        self._closed = False
+        await self._close_response()
         if self._client is not None:
             client = self._client
         else:

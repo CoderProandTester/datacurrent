@@ -3,6 +3,8 @@ name: Release
 on:
   release:
     types: [published]
+  push:
+    tags: ["v*"]
   workflow_dispatch:
 
 permissions:
@@ -31,8 +33,10 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     environment:
-      name: pypi
+      name: release
       url: https://pypi.org/project/datacurrent/
+    # Trusted publishing: the OIDC token is exchanged for a short-lived upload
+    # credential and PyPI attaches a signed provenance attestation.
     permissions:
       id-token: write
     steps:

@@ -75,7 +75,7 @@ class Metrics:
     Example::
 
         metrics = Metrics()
-        metrics.inc("stream.items", tags={"stream": "orders"})
+        metrics.inc("stream.items", stream="orders")
         metrics.snapshot()["stream.items{stream=orders}"] == 1
     """
 

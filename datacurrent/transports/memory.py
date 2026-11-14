@@ -100,9 +100,10 @@ class Channel(Generic[T]):
         channel = self
 
         async def factory() -> Any:
+            # The stream iterator owns items_out (config.observe=True); counting
+            # here as well would report every item twice.
             try:
                 async for item in queue:
-                    stats.items_out += 1
                     yield item
             finally:
                 channel._subscribers.discard(queue)

@@ -111,21 +111,29 @@ issue.
 ## Release process
 
 Versions are read from `datacurrent/_version.py`; that file is the single source
-of truth. Releases are normally published by GitHub Actions with PyPI trusted
-publishing, so the upload carries a signed provenance attestation.
+of truth. Releases are published by GitHub Actions with PyPI trusted publishing,
+so the upload carries a signed provenance attestation.
 
 ```bash
 # 1. Bump the version and document it
-#    datacurrent/_version.py -> __version__ = "1.0.2"
+#    datacurrent/_version.py -> __version__ = "1.1.4"
 #    CHANGELOG.md -> new heading with the date
 
 # 2. Verify everything
 python scripts/dev.py release      # lint, mypy, tests, build, twine check
 
 # 3. Publish
-#    Preferred: GitHub Release -> the release workflow uploads to PyPI
-#    Fallback: twine upload dist/*
+git commit -am "Release 1.1.4"
+git tag v1.1.4
+git push origin main --tags        # runs .github/workflows/release.yml
 ```
+
+`.github/workflows/release.yml` runs on a published GitHub release and on any
+`v*` tag push. Its `publish` job uses the `release` environment and requests
+`id-token: write`, which is what PyPI trusted publishing needs to mint the
+upload credential and attach the provenance attestation. The PyPI publisher is
+configured with owner `CoderProandTester`, repository `datacurrent`, workflow
+`release.yml` and environment `release`.
 
 Set `TWINE_USERNAME=__token__` and `TWINE_PASSWORD=<PyPI API token>` (or use
 `~/.pypirc`) for the manual path. PyPI rejects re-uploads of an existing version,

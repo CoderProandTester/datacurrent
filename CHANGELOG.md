@@ -4,6 +4,39 @@ All notable changes to DataCurrent are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.4] — 2026-11-14
+
+Bug-fix and release-automation release. The public API is unchanged.
+
+### Fixed
+
+- `EventBus.stream()` and `Channel.subscribe()` counted every delivered item
+  twice in `Stream.stats["items_out"]`: the subscription factory and the stream
+  iterator both incremented the counter. Each item is now counted once.
+- `HTTPStream` could not be reopened. `__aenter__` left the closed flag set, so
+  `as_stream()` or a second `async with` finished without closing the response
+  or the owned client. Entering the stream now clears the flag and releases any
+  previous response first.
+- `WebSocketStream.recv()` claimed to reconnect when `reconnect_attempts` was
+  set; it does not. The docstring now matches the behaviour (reconnection
+  applies to `async for`).
+- The `Metrics` docstring example passed a `tags={...}` keyword that the method
+  does not accept.
+
+### Changed
+
+- The release workflow now also runs on `v*` tag pushes (as well as published
+  GitHub releases), and publishes through the `release` GitHub environment with
+  `id-token: write`, so PyPI trusted publishing still attaches a signed
+  provenance attestation.
+- README badges refreshed (standard CI badge plus a Release workflow badge) and
+the version references in the README, docs and API reference moved to 1.1.4.
+
+### Tests
+
+- A regression test asserting that a channel subscriber and an event-bus stream
+report one `items_out` per delivered item.
+
 ## [1.1.3] — 2026-11-13
 
 Documentation and badge fix. The public API is unchanged.
@@ -11,7 +44,7 @@ Documentation and badge fix. The public API is unchanged.
 ### Fixed
 
 - The README, and therefore the PyPI description, claimed 279 passing tests.
-  The suite has 282 after the coverage tests added in 1.1.2.
+  The suite has 282 after the coverage tests added in 1.1.2 (283 in 1.1.4).
 - Refreshed the PyPI version, Python versions and CI badge URLs so GitHub and
   PyPI render current images instead of a stale cached copy.
 

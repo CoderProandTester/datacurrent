@@ -193,9 +193,10 @@ class EventBus:
         )
 
         async def factory() -> AsyncIterator[Event[Any]]:
+            # The stream iterator owns items_out (config.observe=True); counting
+            # here as well would report every event twice.
             try:
                 async for event in subscription.queue:
-                    stats.items_out += 1
                     yield event
             finally:
                 await self.unsubscribe(subscription)

@@ -9,6 +9,7 @@ from datacurrent import (
     BufferOverflowError,
     Channel,
     ConfigurationError,
+    EventBus,
     OverflowPolicy,
     QueueClosedError,
     QueueEmptyError,
@@ -16,6 +17,24 @@ from datacurrent import (
     StreamClosedError,
     StreamConfig,
 )
+
+
+async def test_subscriber_stats_count_each_item_once() -> None:
+    channel = Channel()
+    subscriber = channel.subscribe()
+    await channel.publish(1)
+    await channel.publish(2)
+    await channel.aclose()
+    assert await subscriber.collect() == [1, 2]
+    assert subscriber.stats["items_out"] == 2
+
+    bus = EventBus()
+    events = bus.stream("counted")
+    await bus.publish("counted", 1)
+    await bus.aclose()
+    received = await events.collect()
+    assert [event.data for event in received] == [1]
+    assert events.stats["items_out"] == 1
 
 
 async def test_block_policy_suspends_producer() -> None:
